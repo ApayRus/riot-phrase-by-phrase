@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Phrase-by-Phrase extractor</title>
+  <meta name="description" content="Extract phrases">
+  <meta name="author" content="Rustam Apaev">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <AudioInput></AudioInput>
+  <ContentTable></ContentTable>
+
+
+<script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
+
+<!-- подключаем компоненты -->
+<script type="riot/tag" src="tags/AudioInput.html"></script>
+<script type="riot/tag" src="tags/ContentTable.html"></script>
+
+<script>
+  phrases = [
+    {t:"phrase1", t0: 0, t1: 1.1},
+    {t:"phrase2", t0: 1.2, t1: 2.2},
+    {t:"phrase3", t0: 2.3, t1: 3}
+  ]
+
+riot.compile(function(){
+
+  Timing = new function() {
+
+    riot.observable(this)
+
+    this.timing = [0]
+
+    this.set = function(timing){
+      this.timing = timing
+      this.trigger('updated')
+    }
+
+    this.get = function(){
+      return this.timing
+    }
+
+    this.push = function(t){
+      this.timing.push(t)
+      this.trigger('updated')
+    }
+  }
+
+  AudioInput = riot.mount('AudioInput')[0]
+  ContentTable = riot.mount('ContentTable')[0]
+
+})
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<ContentTable>
+  <table>
+    <tr each={t in Timing.timing}>
+      <td>{t}</td>
+    </tr>
+  </table>
+
+  <script>
+    var tag = this
+
+    Timing.on('updated', function() {
+      tag.update();
+    })
+  </script>
+
+
+</ContentTable>

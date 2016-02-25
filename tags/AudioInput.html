@@ -1,0 +1,27 @@
+<AudioInput>
+  <h3>Media Link: </h3>
+  <form>
+    <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
+    <audio id="media" controls=1 src={this.link.value} ontimeupdate={timeUpdate}></audio><br />
+    <div id="currentTime">{ct}</div>
+    <button onclick={setTiming}>Set timing</button>
+  </form>
+
+  <script>
+    var tag = this
+
+    tag.readLink = function() {
+      tag.audio = tag.root.querySelector("#media")
+    }
+
+    tag.timeUpdate = function() {
+      tag.ct = tag.audio.currentTime
+    }
+
+    tag.setTiming = function() {
+      Timing.push(tag.ct)
+    }
+  </script>
+
+
+</AudioInput>
