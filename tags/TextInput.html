@@ -1,0 +1,17 @@
+<TextInput>
+  <textarea name="textinput" oninput={inputEdit} placeholder="Please, input text..."></textarea>
+  <TextOutput words={words}></TextOutput>
+
+<script>
+  tag = this
+
+  tag.inputEdit = function(){
+
+    words = tag.textinput.value.split(/\s/)
+    tag.update();
+
+  }
+
+</script>
+
+</TextInput>

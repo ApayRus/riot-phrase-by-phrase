@@ -16,6 +16,7 @@
 <body>
   <AudioInput></AudioInput>
   <ContentTable></ContentTable>
+  <TextInput></TextInput>
 
 
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
@@ -23,6 +24,8 @@
 <!-- подключаем компоненты -->
 <script type="riot/tag" src="tags/AudioInput.html"></script>
 <script type="riot/tag" src="tags/ContentTable.html"></script>
+<script type="riot/tag" src="tags/TextInput.html"></script>
+<script type="riot/tag" src="tags/TextOutput.html"></script>
 
 <script>
   phrases = [
@@ -56,6 +59,8 @@ riot.compile(function(){
 
   AudioInput = riot.mount('AudioInput')[0]
   ContentTable = riot.mount('ContentTable')[0]
+  TextInput = riot.mount('TextInput')[0]
+  //TextOutput = riot.mount('TextOutput', {words: ["This", "is", "Bbc", "news"]})[0]
 
 })
 
