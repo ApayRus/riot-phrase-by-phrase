@@ -1,0 +1,16 @@
+.word:hover{
+  text-decoration: underline;
+  color: darkblue;
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.play-in-table {
+  background: url(../images/play-in-table.png) no-repeat center;
+  cursor: pointer;
+  opacity: 0.2;
+}
+
+.play-in-table:hover{
+  opacity: 0.7;
+}

@@ -1,7 +1,7 @@
 <TextOutput>
   <div name="text-output">
     <virtual each={w,i in opts.words}>
-      <span if={w.trim()!=""} id="word-{i}" >{w} </span>
+      <span if={w.trim()!=""} id="word-{i}" class="word">{w} </span>
       <br / if={w.trim()==""}> <br / if={w.trim()==""}>
     </virtual>
   </div>
