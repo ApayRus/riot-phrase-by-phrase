@@ -26,6 +26,7 @@
 <script type="riot/tag" src="tags/ContentTable.html"></script>
 <script type="riot/tag" src="tags/TextInput.html"></script>
 <script type="riot/tag" src="tags/TextOutput.html"></script>
+<script src="tags/Timing.js"></script>
 
 <script>
   phrases = [
@@ -35,27 +36,6 @@
   ]
 
 riot.compile(function(){
-
-  Timing = new function() {
-
-    riot.observable(this)
-
-    this.timing = [0]
-
-    this.set = function(timing){
-      this.timing = timing
-      this.trigger('updated')
-    }
-
-    this.get = function(){
-      return this.timing
-    }
-
-    this.push = function(t){
-      this.timing.push(t)
-      this.trigger('updated')
-    }
-  }
 
   AudioInput = riot.mount('AudioInput')[0]
   ContentTable = riot.mount('ContentTable')[0]
