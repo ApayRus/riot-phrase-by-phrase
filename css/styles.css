@@ -5,6 +5,26 @@
   background-color: #eee;
 }
 
+.word-block {
+  display: inline-block;
+}
+
+.word-info {
+  font-size: 70%;
+}
+
+.word-info.beg-of-phrase{
+  color: green;
+}
+
+.word-info.end-of-phrase{
+  color: red;
+}
+
+.word-info.mid-of-phrase{
+  color: white;
+}
+
 .play-in-table {
   background: url(../images/play-in-table.png) no-repeat center;
   cursor: pointer;
@@ -13,4 +33,23 @@
 
 .play-in-table:hover{
   opacity: 0.7;
+}
+
+.num-in-table {
+  font-size: 80%;
+  color: gray; 
+}
+
+.table-timing input{
+  width: 80px;
+}
+
+.table-phrase input {
+  width: 350px;
+}
+
+#contentTable, #textOutput {
+  max-width: 45%;
+  display: inline-block;
+  vertical-align: top;
 }

@@ -15,9 +15,10 @@
 
 <body>
   <AudioInput></AudioInput>
-  <ContentTable></ContentTable>
   <TextInput></TextInput>
 
+  <TextOutput></TextOutput>
+  <ContentTable></ContentTable>
 
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
 
@@ -42,6 +43,7 @@ riot.compile(function(){
   AudioInput = riot.mount('AudioInput')[0]
   ContentTable = riot.mount('ContentTable')[0]
   TextInput = riot.mount('TextInput')[0]
+  TextOutput = riot.mount('TextOutput')[0]
   //TextOutput = riot.mount('TextOutput', {words: ["This", "is", "Bbc", "news"]})[0]
 
 })

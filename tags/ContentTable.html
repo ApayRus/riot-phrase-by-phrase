@@ -1,20 +1,24 @@
 <ContentTable>
-  <table>
-    <tr>
-      <th>Play</th>
-      <th>Text</th>
-      <th>t0</th>
-      <th>t1</th>
-      <th>d</th>
-    </tr>
-    <tr each={phrase, phraseNum in Phrases.get()} if={phraseNum>0}>
-      <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
-      <td><input name="text" oninput={onEditText} ></input></td>
-      <td><input name="timing0" type="number" step=0.1 value={phrase.timing0} oninput={onEditTiming0}></input></td>
-      <td><input name="timing1" type="number" step=0.1 value={phrase.timing1} oninput={onEditTiming1}></input></td>
-      <td>{(phrase.timing1-phrase.timing0).toFixed(2)}</td>
-    </tr>
-  </table>
+  <div id="contentTable">
+    <table>
+      <tr>
+        <th></th>
+        <th>Play</th>
+        <th>Text</th>
+        <th>t0</th>
+        <th>t1</th>
+        <th>d</th>
+      </tr>
+      <tr each={phrase, phraseNum in Phrases.get()} if={phraseNum>0}>
+        <td class="num-in-table">{phraseNum}</td>
+        <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
+        <td class="table-phrase"><input name="text" oninput={onEditText} value={phrase.text} ></input></td>
+        <td class="table-timing"><input name="timing0" type="number" step=0.1 value={phrase.timing0} oninput={onEditTiming0}></input></td>
+        <td class="table-timing"><input name="timing1" type="number" step=0.1 value={phrase.timing1} oninput={onEditTiming1}></input></td>
+        <td>{(phrase.timing1-phrase.timing0).toFixed(2)}</td>
+      </tr>
+    </table>
+  </div>
 
   <script>
     var tag = this

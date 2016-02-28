@@ -1,8 +1,38 @@
 <TextOutput>
-  <div name="text-output">
-    <virtual each={w,i in opts.words}>
-      <span if={w.trim()!=""} id="word-{i}" class="word">{w} </span>
+  <div name="text-output" id="textOutput">
+    <virtual each={w,i in Phrases.getWords()}>
+      <div class="word-block">
+        <div if={w.trim()!=""} class="word" onclick={wordClicked}>{w} </div>
+        <div if={Phrases.getWordStatus(i)=="end_of_phrase"} class="word-info end-of-phrase">{i}</div>
+        <div if={Phrases.getWordStatus(i)=="beg_of_phrase"} class="word-info beg-of-phrase">{i}</div>
+        <div if={Phrases.getWordStatus(i)=="mid_of_phrase"} class="word-info mid-of-phrase">{i}</div>
+      </div>
       <br / if={w.trim()==""}> <br / if={w.trim()==""}>
     </virtual>
   </div>
+
+
+<script>
+
+var tag = this
+
+tag.wordClicked = function (event) {
+  var prevPhrase = Phrases.getPhrase(Phrases.length()-1)
+  var word0 = (Phrases.getWord(prevPhrase.word1 + 1).trim() != "") ? prevPhrase.word1 + 1 : prevPhrase.word1 + 2
+
+  Phrases.push({
+                word0: word0,
+                word1: event.item.i,
+                timing0:  prevPhrase.timing1,
+                timing1: Media.getCurrentTime().toFixed(2),
+                text: Phrases.getPhraseFromWords(word0, event.item.i+1)
+                })
+
+}
+
+Phrases.on('words_updated', function() {
+  tag.update()
+})
+
+</script>
 </TextOutput>

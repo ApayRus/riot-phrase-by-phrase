@@ -26,10 +26,13 @@ Media = new function() {
     var media = this.media
     media.currentTime = phrase.timing0
     media.play()
-    this.media.ontimeupdate = function(){
-        if(media.currentTime >= phrase.timing1)
+    media.ontimeupdate = function(){
+        if(media.currentTime >= phrase.timing1){
           media.pause()
+          media.ontimeupdate = null
+        }
       }
+
   }
 
 }
