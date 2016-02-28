@@ -20,7 +20,7 @@
     var tag = this
 
     tag.playInTable = function(event) {
-      console.log(event.item, this.timing0.value)
+      Media.playPhrase(event.item.phraseNum)
     }
 
     tag.onEditText = function(event) {

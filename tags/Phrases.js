@@ -35,4 +35,8 @@ Phrases = new function() {
     this.trigger('update')
 }
 
+  this.length = function() {
+    return this.phrases.length
+  }
+
 }

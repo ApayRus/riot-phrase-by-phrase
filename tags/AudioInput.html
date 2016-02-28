@@ -2,7 +2,8 @@
   <h3>Media Link: </h3>
   <form>
     <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
-    <audio id="media" controls=1 src={this.link.value} ontimeupdate={timeUpdate}></audio><br />
+    <div id="mediaContainer"></div>
+    <audio id="media" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
     <div id="currentTime">{ct}</div>
     <button onclick={setTiming}>Add time interval</button>
   </form>
@@ -12,6 +13,7 @@
 
     tag.readLink = function() {
       tag.media = tag.root.querySelector("#media")
+      Media.setMedia(tag.media)
     }
 
     tag.timeUpdate = function() {
@@ -19,7 +21,7 @@
     }
 
     tag.setTiming = function() {
-      var i = Phrases.phrases.length-1
+      var i = Phrases.length()-1
       Phrases.push({word0: 0, word1:0, timing0:  Phrases.getPhrase(i).timing1, timing1: tag.ct, text: ""})
       //console.log("i: ", i, "")
     }
