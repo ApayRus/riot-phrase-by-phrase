@@ -1,0 +1,45 @@
+<MediaInput>
+  <h3>Media Link: </h3>
+  <form>
+    <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
+    <div id="mediaContainer"></div>
+    <div name="mediaType">{mediaType}</div>
+
+    <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
+    <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
+    <div id="currentTime">{ct}</div>
+    <button onclick={setTiming}>Add time interval</button>
+  </form>
+
+  <script>
+    var tag = this
+    this.mediaType = ""
+
+    tag.readLink = function() {
+      //tag.media = tag.root.querySelector("#media")
+
+      tag.mediaType = typeOfMedia(tag.link.value)
+      Media.setMedia(tag[tag.mediaType+"Element"])
+    }
+
+    tag.timeUpdate = function() {
+      tag.ct = Media.getCurrentTime().toFixed(2)
+    }
+
+    tag.setTiming = function() {
+      var i = Phrases.length()-1
+      Phrases.push({word0: 0, word1:0, timing0:  Phrases.getPhrase(i).timing1, timing1: tag.ct, text: ""})
+      //console.log("i: ", i, "")
+    }
+
+    function typeOfMedia(link) {
+      if (/\.mp3$/.test(link)) return "audio"
+      else if (/\.mp4$/.test(link)) return "video"
+      else if (/youtu/.test(link)) return "youtube"
+      else return "unknown media type"
+    }
+
+  </script>
+
+
+</MediaInput>

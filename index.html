@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <AudioInput></AudioInput>
+  <MediaInput></MediaInput>
   <TextInput></TextInput>
 
   <TextOutput></TextOutput>
@@ -23,13 +23,14 @@
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
 
 <!-- подключаем компоненты -->
-<script type="riot/tag" src="tags/AudioInput.html"></script>
+<script type="riot/tag" src="tags/MediaInput.html"></script>
 <script type="riot/tag" src="tags/ContentTable.html"></script>
 <script type="riot/tag" src="tags/TextInput.html"></script>
 <script type="riot/tag" src="tags/TextOutput.html"></script>
-<script src="tags/Phrases.js"></script>
-<script src="tags/Words.js"></script>
-<script src="tags/Media.js"></script>
+<script src="components/Phrases.js"></script>
+<script src="components/Words.js"></script>
+<script src="components/Subtitles.js"></script>
+<script src="components/Media.js"></script>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 
 <script>
@@ -41,7 +42,7 @@
 
 riot.compile(function(){
 
-  AudioInput = riot.mount('AudioInput')[0]
+  AudioInput = riot.mount('MediaInput')[0]
   ContentTable = riot.mount('ContentTable')[0]
   TextInput = riot.mount('TextInput')[0]
   TextOutput = riot.mount('TextOutput')[0]
