@@ -1,13 +1,15 @@
 <TextOutput>
   <div name="text-output" id="textOutput">
-    <virtual each={w,i in Phrases.getWords()}>
+    <virtual each={ word, wordNum in Words.get() }>
       <div class="word-block">
-        <div if={w.trim()!=""} class="word" onclick={wordClicked}>{w} </div>
-        <div if={Phrases.getWordStatus(i)=="end_of_phrase"} class="word-info end-of-phrase">{i}</div>
-        <div if={Phrases.getWordStatus(i)=="beg_of_phrase"} class="word-info beg-of-phrase">{i}</div>
-        <div if={Phrases.getWordStatus(i)=="mid_of_phrase"} class="word-info mid-of-phrase">{i}</div>
+        <div if={ word.trim()!=""} class="word {Words.getWordStatus(wordNum)}" onclick={wordClicked}>{word} </div>
+        <!--
+        <div if={Words.getWordStatus(i)=="end_of_phrase"} class="word-info end-of-phrase">{i}</div>
+        <div if={Words.getWordStatus(i)=="beg_of_phrase"} class="word-info beg-of-phrase">{i}</div>
+        <div if={Words.getWordStatus(i)=="mid_of_phrase"} class="word-info mid-of-phrase">{i}</div>
+      -->
       </div>
-      <br / if={w.trim()==""}> <br / if={w.trim()==""}>
+      <br / if={word.trim()==""}> <br / if={word.trim()==""}>
     </virtual>
   </div>
 
@@ -18,19 +20,19 @@ var tag = this
 
 tag.wordClicked = function (event) {
   var prevPhrase = Phrases.getPhrase(Phrases.length()-1)
-  var word0 = (Phrases.getWord(prevPhrase.word1 + 1).trim() != "") ? prevPhrase.word1 + 1 : prevPhrase.word1 + 2
+  var word0 = (Words.getWord(prevPhrase.word1 + 1).trim() != "") ? prevPhrase.word1 + 1 : prevPhrase.word1 + 2
 
   Phrases.push({
                 word0: word0,
-                word1: event.item.i,
+                word1: event.item.wordNum,
                 timing0:  prevPhrase.timing1,
                 timing1: Media.getCurrentTime().toFixed(2),
-                text: Phrases.getPhraseFromWords(word0, event.item.i+1)
+                text: Words.getPhraseFromWords(word0, event.item.wordNum+1)
                 })
 
 }
 
-Phrases.on('words_updated', function() {
+Words.on('words_updated', function() {
   tag.update()
 })
 

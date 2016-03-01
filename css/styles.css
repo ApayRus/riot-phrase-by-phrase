@@ -13,16 +13,16 @@
   font-size: 70%;
 }
 
-.word-info.beg-of-phrase{
-  color: green;
+.beg-of-phrase{
+  border: 1px solid green;
 }
 
-.word-info.end-of-phrase{
-  color: red;
+.end-of-phrase{
+  border: 1px solid red;
 }
 
-.word-info.mid-of-phrase{
-  color: white;
+.mid-of-phrase{
+  border: 1px solid white;
 }
 
 .play-in-table {
@@ -37,7 +37,7 @@
 
 .num-in-table {
   font-size: 80%;
-  color: gray; 
+  color: gray;
 }
 
 .table-timing input{

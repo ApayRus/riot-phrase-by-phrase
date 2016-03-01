@@ -33,6 +33,7 @@
 
     tag.onEditTiming0 = function(event) {
       Phrases.updatePhrase(event.item.phraseNum,{"timing0": this.timing0.value })
+      Media.playPhrase(event.item.phraseNum)
     }
 
     tag.onEditTiming1 = function(event) {

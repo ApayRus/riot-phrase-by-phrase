@@ -34,31 +34,6 @@ Phrases = new function() {
     return this.phrases.length
   }
 
-  this.words = []
 
-  this.setWords = function(words_array){
-    this.words = words_array
-    this.words.unshift("")
-    this.trigger('words_updated')
-  }
-
-  this.getWords = function(){
-    return this.words
-  }
-
-  this.getWord = function(wordNum){
-    return this.words[wordNum]
-  }
-
-  this.getPhraseFromWords = function(word0, word1) {
-    return this.words.slice(word0,word1).join(" ")
-  }
-  //return is the words[i] beginning or end of phrase
-  this.getWordStatus = function(wordNum){
-
-    if(this.phrases.filter(function(phrase) { return phrase.word1 == wordNum; }).length > 0) return "end_of_phrase";
-    else if(this.phrases.filter(function(phrase) { return phrase.word0 == wordNum; }).length > 0) return "beg_of_phrase";
-    else return "mid_of_phrase"
-  }
 
 }
