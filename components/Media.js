@@ -35,4 +35,11 @@ Media = new function() {
 
   }
 
+  this.type = function(link) {
+    if (/\.mp3$/.test(link)) return "audio"
+    else if (/\.mp4$/.test(link)) return "video"
+    else if (/youtu/.test(link)) return "youtube"
+    else return "unknown media type"
+  }
+
 }

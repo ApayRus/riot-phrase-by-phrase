@@ -18,7 +18,7 @@
     tag.readLink = function() {
       //tag.media = tag.root.querySelector("#media")
 
-      tag.mediaType = typeOfMedia(tag.link.value)
+      tag.mediaType = Media.type(tag.link.value)
       Media.setMedia(tag[tag.mediaType+"Element"])
     }
 
@@ -32,12 +32,6 @@
       //console.log("i: ", i, "")
     }
 
-    function typeOfMedia(link) {
-      if (/\.mp3$/.test(link)) return "audio"
-      else if (/\.mp4$/.test(link)) return "video"
-      else if (/youtu/.test(link)) return "youtube"
-      else return "unknown media type"
-    }
 
   </script>
 
