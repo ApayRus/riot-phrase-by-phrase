@@ -28,13 +28,10 @@ Subtitles = new function(){
       line_array = subs_array[i].split("\n")
       //00:00:50.000 --> 00:00:52.780
 
-        srt_timing_array = line_array[1].replace(/,/g,'.').split(" --> ")
+        srt_timing_array = line_array[1].split(" --> ")
 
-          srt_timing_start_array = srt_timing_array[0].split(":")
-          srt_timing_end_array = srt_timing_array[1].split(":")
-
-            sub.timingStart = (parseFloat(srt_timing_start_array[2]) + parseFloat(srt_timing_start_array[1]*60) + parseFloat(srt_timing_start_array[0]*3600)).toFixed(2)
-            sub.timingEnd = (parseFloat(srt_timing_end_array[2]) + parseFloat(srt_timing_end_array[1]*60) + parseFloat(srt_timing_end_array[0]*3600)).toFixed(2)
+            sub.timingStart = this.timeToSeconds(srt_timing_array[0])
+            sub.timingEnd = this.timeToSeconds(srt_timing_array[1])
 
       sub.text = line_array.slice(2).join(" ")
       subs.push(sub)
@@ -43,6 +40,30 @@ Subtitles = new function(){
     }
     return subs
 
+  }
+
+  this.parseAss = function(text){
+    var sub = {}
+    var subs = [0]
+    var subs_array = text.split('\n')
+    subs_array.unshift("ASS")
+    for (var i=1; i < subs_array.length; i++) {
+      line_array = subs_array[i].split(",")
+      //Dialogue: 0,0:00:13.22,0:01:02.37,Default,,0,0,0,, Арабский язык: системная симфония. 2-я серия.
+      sub.timingStart = this.timeToSeconds(line_array[1])
+      sub.timingEnd = this.timeToSeconds(line_array[2])
+      sub.text = line_array[9]
+      subs.push(sub)
+      sub = {}
+    }
+
+    return subs
+
+  }
+
+  this.timeToSeconds = function(time){
+    var time_array = time.replace(/,/g,'.').split(":")
+    return (parseFloat(time_array[2]) + parseFloat(time_array[1]*60) + parseFloat(time_array[0]*3600)).toFixed(2)
   }
 
 }
