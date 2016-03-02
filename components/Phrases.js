@@ -2,7 +2,7 @@ Phrases = new function() {
 
   riot.observable(this)
 
-  this.phrases = [{word0: 0, word1:0, timing0:  0, timing1: 0, text: ""}]
+  this.phrases = [{word0: 0, word1:0, timingStart:  0, timingEnd: 0, text: ""}]
 
   this.set = function(phrases){
     this.phrases = phrases

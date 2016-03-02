@@ -25,8 +25,8 @@ tag.wordClicked = function (event) {
   Phrases.push({
                 word0: word0,
                 word1: event.item.wordNum,
-                timing0:  prevPhrase.timing1,
-                timing1: Media.getCurrentTime().toFixed(2),
+                timingStart:  prevPhrase.timingEnd,
+                timingEnd: Media.getCurrentTime().toFixed(2),
                 text: Words.getPhraseFromWords(word0, event.item.wordNum+1)
                 })
 

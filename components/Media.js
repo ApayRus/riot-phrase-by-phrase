@@ -24,10 +24,10 @@ Media = new function() {
   this.playPhrase = function(phraseNum){
     var phrase = Phrases.getPhrase(phraseNum)
     var media = this.media
-    media.currentTime = phrase.timing0
+    media.currentTime = phrase.timingStart
     media.play()
     media.ontimeupdate = function(){
-        if(media.currentTime >= phrase.timing1){
+        if(media.currentTime >= phrase.timingEnd){
           media.pause()
           media.ontimeupdate = null
         }

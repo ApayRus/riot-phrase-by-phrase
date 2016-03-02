@@ -13,9 +13,9 @@
         <td class="num-in-table">{phraseNum}</td>
         <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
         <td class="table-phrase"><input name="text" oninput={onEditText} value={phrase.text} ></input></td>
-        <td class="table-timing"><input name="timing0" type="number" step=0.1 value={phrase.timing0} oninput={onEditTiming0}></input></td>
-        <td class="table-timing"><input name="timing1" type="number" step=0.1 value={phrase.timing1} oninput={onEditTiming1}></input></td>
-        <td>{(phrase.timing1-phrase.timing0).toFixed(2)}</td>
+        <td class="table-timing"><input name="timingStart" type="number" step=0.1 value={phrase.timingStart} oninput={onEditTimingStart}></input></td>
+        <td class="table-timing"><input name="timingEnd" type="number" step=0.1 value={phrase.timingEnd} oninput={onEditTimingEnd}></input></td>
+        <td>{(phrase.timingEnd-phrase.timingStart).toFixed(2)}</td>
       </tr>
     </table>
   </div>
@@ -31,13 +31,13 @@
       Phrases.updatePhrase(event.item.phraseNum,{"text": this.text.value })
     }
 
-    tag.onEditTiming0 = function(event) {
-      Phrases.updatePhrase(event.item.phraseNum,{"timing0": this.timing0.value })
+    tag.onEditTimingStart = function(event) {
+      Phrases.updatePhrase(event.item.phraseNum,{"timingStart": this.timingStart.value })
       Media.playPhrase(event.item.phraseNum)
     }
 
-    tag.onEditTiming1 = function(event) {
-      Phrases.updatePhrase(event.item.phraseNum,{"timing1": this.timing1.value })
+    tag.onEditTimingEnd = function(event) {
+      Phrases.updatePhrase(event.item.phraseNum,{"timingEnd": this.timingEnd.value })
     }
 
     Phrases.on('updated', function() {

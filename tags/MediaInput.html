@@ -28,7 +28,7 @@
 
     tag.setTiming = function() {
       var i = Phrases.length()-1
-      Phrases.push({word0: 0, word1:0, timing0:  Phrases.getPhrase(i).timing1, timing1: tag.ct, text: ""})
+      Phrases.push({word0: 0, word1:0, timingStart:  Phrases.getPhrase(i).timingEnd, timingEnd: tag.ct, text: ""})
       //console.log("i: ", i, "")
     }
 
