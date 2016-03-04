@@ -7,13 +7,17 @@
 
     <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
     <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
+    <div id="subtitles">
+      <div id="subs-in-lang-1">{Phrases.getPhrase(currentPhrase).text}</div>
+    </div>
     <div id="currentTime">{ct}</div>
     <button onclick={setTiming}>Add time interval</button>
   </form>
 
   <script>
     var tag = this
-    this.mediaType = ""
+    tag.mediaType = ""
+    tag.currentPhrase = 1
 
     tag.readLink = function() {
       //tag.media = tag.root.querySelector("#media")
@@ -32,6 +36,11 @@
       //console.log("i: ", i, "")
     }
 
+    Phrases.on("current_phrase_changed", function(phraseNum){
+        tag.currentPhrase = phraseNum
+        tag.update()
+
+      })
 
   </script>
 

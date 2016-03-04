@@ -4,9 +4,20 @@ Phrases = new function() {
 
   this.phrases = [{word0: 0, word1:0, timingStart:  0, timingEnd: 0, text: ""}]
 
+  this.currentPhrase = 1
+
   this.set = function(phrases){
     this.phrases = phrases
     this.trigger('updated')
+  }
+
+  this.setCurrentPhrase = function(phraseNum){
+    this.currentPhrase = phraseNum
+    this.trigger('current_phrase_changed', phraseNum)
+  }
+
+  this.getCurrentPhrase = function() {
+    return this.currentPhrase
   }
 
   this.get = function() {
