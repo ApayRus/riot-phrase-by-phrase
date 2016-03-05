@@ -1,6 +1,7 @@
 <TextInput>
   <div id="textInput">
-    <textarea name="textinput" oninput={inputEdit} placeholder="Please, input text..."></textarea>
+    <textarea name="textinput" oninput={inputEdit} placeholder="Please, input text..."></textarea><br />
+    <button onclick={readSubtitles}>Прочитать субтитры</button>
   </div>
 
 <script>
@@ -10,6 +11,15 @@
 
     //Words.set(tag.textinput.value.split(/\s/))
     tag.update();
+  }
+
+  tag.readSubtitles = function(){
+    sub_text = tag.textinput.value
+    sub_type = Subtitles.type(sub_text)
+    if( (sub_type == "srt" ) || (sub_type == "webvtt" ) )
+      Phrases.set(Subtitles.parseWebvttSrt(sub_text));
+    else if(sub_type == "ass")
+      Phrases.set(Subtitles.parseAss(sub_text));
   }
 
 </script>

@@ -1,23 +1,25 @@
 <MediaInput>
-  <h3>Media Link: </h3>
-  <form>
-    <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
-    <div id="mediaContainer"></div>
-    <div name="mediaType">{mediaType}</div>
+  <div id="mediaInput">
+    <h3>Media Link: </h3>
+    <form>
+      <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
+      <div name="mediaType">{mediaType}</div>
 
-    <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
-    <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
-    <div id="playerControls">
-      <button id="prevButton" class="playerNav" onclick={prevClicked}>Prev</button>
-      <button id="repeatButton" class="playerNav" onclick={repeatClicked}>Repeat</button>
-      <button id="nextButton" class="playerNav" onclick={nextClicked}>Next</button>
-    </div>
-    <div id="subtitles">
-      <div id="subs-in-lang-1">{subs}</div>
-    </div>
-    <div id="currentTime">{ct}</div>
-    <button onclick={setTiming}>Add time interval</button>
-  </form>
+      <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
+      <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
+      <div id="playerControls">
+        <button id="prevButton" class="playerNav" onclick={prevClicked}>Prev</button>
+        <button id="repeatButton" class="playerNav" onclick={repeatClicked}>Repeat</button>
+        <button id="nextButton" class="playerNav" onclick={nextClicked}>Next</button>
+        <div class="playerNav">{currentPhraseNum}</div>
+      </div>
+      <div id="subtitles">
+        <div id="subs-in-lang-1">{subs}</div>
+      </div>
+      <div id="currentTime">{ct}</div>
+      <button onclick={setTiming}>Add time interval</button>
+    </form>
+  </div>
 
   <script>
     var tag = this
@@ -57,6 +59,8 @@
     }
 
     Phrases.on("current_phrase_changed", function(phraseNum){
+        tag.currentPhraseNum = phraseNum
+        tag.subs = Phrases.getPhrase(phraseNum).text
         tag.update()
 
       })

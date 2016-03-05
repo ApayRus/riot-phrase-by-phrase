@@ -9,7 +9,7 @@
         <th>t1</th>
         <th>d</th>
       </tr>
-      <tr each={phrase, phraseNum in Phrases.get()} if={phraseNum>0}>
+      <tr each={phrase, phraseNum in Phrases.get()} if={phraseNum > 0} class={active : currentPhraseNum == phraseNum} >
         <td class="num-in-table">{phraseNum}</td>
         <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
         <td class="table-phrase"><input name="text" oninput={onEditText} value={phrase.text} ></input></td>
@@ -43,6 +43,13 @@
     Phrases.on('updated', function() {
       tag.update()
     })
+
+    Phrases.on("current_phrase_changed", function(phraseNum){
+        tag.currentPhraseNum = phraseNum
+        tag.update()
+
+      })
+
   </script>
 
 

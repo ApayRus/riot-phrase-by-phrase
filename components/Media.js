@@ -59,6 +59,7 @@ var med = this
 
             if(play_mode == "stream") {
               Phrases.setCurrentPhrase(currentPhraseNum + 1)
+              console.log(Phrases.getCurrentPhraseNum())
             }
             else if(play_mode == "phrase"){
               media.pause()
@@ -70,7 +71,6 @@ var med = this
 
     function mediaOnPause(media) {
       med.play_mode = "stream"
-      console.log(Phrases.getCurrentPhraseNum())
     }
 
 

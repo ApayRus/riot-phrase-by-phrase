@@ -17,7 +17,7 @@ Subtitles = new function(){
   this.parseWebvttSrt = function(text){
     //text.replace(/WEBVTT\s+/, "")
     var subs_array = text.split("\n\n")
-    var subs = [0]
+    var subs = [{timingStart: 0, timingEnd: 0, text: ""}]
     var sub = {}
     var srt_timing_array,  srt_timing_start_array, srt_timing_end_array, line_array = []
 
@@ -44,7 +44,7 @@ Subtitles = new function(){
 
   this.parseAss = function(text){
     var sub = {}
-    var subs = [0]
+    var subs = [{timingStart: 0, timingEnd: 0, text: ""}]
     var subs_array = text.split('\n')
     subs_array.unshift("ASS")
     for (var i=1; i < subs_array.length; i++) {

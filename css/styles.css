@@ -52,8 +52,14 @@
   display: inline-block;
 }
 
-#contentTable, #textOutput {
-  max-width: 45%;
+audio, video {width : 100% ;}
+
+#contentTable, #textOutput, #mediaInput {
+  width: 45%;
   display: inline-block;
   vertical-align: top;
+}
+
+#contentTable .active {
+  background: wheat; 
 }
