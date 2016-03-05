@@ -10,11 +10,9 @@ var med = this
     this.media.ontimeupdate = function(e){
       mediaOnTimeUpdate(e.target, obj.play_mode)
     }
-
-    /*  mediaElement.onpause = function(){
-        mediaElement.ontimeupdate = null
-      }
-    */
+    this.media.onpause = function(e){
+      mediaOnPause(e.target)
+    }
 
   }
 
@@ -35,11 +33,12 @@ var med = this
   }
 
   this.playPhrase = function(phraseNum){
-    var phrase = Phrases.getPhrase(phraseNum)
+    this.play_mode = "phrase"
     Phrases.setCurrentPhrase(phraseNum)
+    var phrase = Phrases.getPhrase(phraseNum)
     this.media.currentTime = phrase.timingStart
     this.media.play()
-    this.play_mode = "phrase"
+
   }
 
   this.type = function(link) {
@@ -52,19 +51,26 @@ var med = this
 
   function mediaOnTimeUpdate(media, play_mode){
 
-      var phrase = Phrases.getPhrase(Phrases.getCurrentPhrase())
+
+      var currentPhraseNum = Phrases.getCurrentPhraseNum()
+      var phrase = Phrases.getPhrase(currentPhraseNum)
 
         if(media.currentTime >= phrase.timingEnd){
 
-          if(play_mode == "phrase") {
-            med.play_mode = "stream"
-            media.pause()
-          }
-          Phrases.setCurrentPhrase(Phrases.getCurrentPhrase()+1)
-          //media.ontimeupdate = null
-          //console.log(media.currentTime, phrase.timingEnd)
+            if(play_mode == "stream") {
+              Phrases.setCurrentPhrase(currentPhraseNum + 1)
+            }
+            else if(play_mode == "phrase"){
+              media.pause()
+            }
+
         }
 
+    }
+
+    function mediaOnPause(media) {
+      med.play_mode = "stream"
+      console.log(Phrases.getCurrentPhraseNum())
     }
 
 

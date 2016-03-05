@@ -48,6 +48,10 @@
   width: 350px;
 }
 
+.playerNav {
+  display: inline-block;
+}
+
 #contentTable, #textOutput {
   max-width: 45%;
   display: inline-block;

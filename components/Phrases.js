@@ -4,7 +4,7 @@ Phrases = new function() {
 
   this.phrases = [{word0: 0, word1:0, timingStart:  0, timingEnd: 0, text: ""}]
 
-  this.currentPhrase = 1
+  this.currentPhrase = 0
 
   this.set = function(phrases){
     this.phrases = phrases
@@ -16,7 +16,7 @@ Phrases = new function() {
     this.trigger('current_phrase_changed', phraseNum)
   }
 
-  this.getCurrentPhrase = function() {
+  this.getCurrentPhraseNum = function() {
     return this.currentPhrase
   }
 

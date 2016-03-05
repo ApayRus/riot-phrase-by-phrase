@@ -7,8 +7,13 @@
 
     <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
     <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
+    <div id="playerControls">
+      <button id="prevButton" class="playerNav" onclick={prevClicked}>Prev</button>
+      <button id="repeatButton" class="playerNav" onclick={repeatClicked}>Repeat</button>
+      <button id="nextButton" class="playerNav" onclick={nextClicked}>Next</button>
+    </div>
     <div id="subtitles">
-      <div id="subs-in-lang-1">{Phrases.getPhrase(currentPhrase).text}</div>
+      <div id="subs-in-lang-1">{subs}</div>
     </div>
     <div id="currentTime">{ct}</div>
     <button onclick={setTiming}>Add time interval</button>
@@ -36,8 +41,22 @@
       //console.log("i: ", i, "")
     }
 
+    tag.nextClicked = function(){
+      var cf = Phrases.getCurrentPhraseNum()
+      Media.playPhrase(cf+1)
+    }
+
+    tag.prevClicked = function(){
+      var cf = Phrases.getCurrentPhraseNum()
+      Media.playPhrase(cf-1)
+    }
+
+    tag.repeatClicked = function(){
+      var cf = Phrases.getCurrentPhraseNum()
+      Media.playPhrase(cf)
+    }
+
     Phrases.on("current_phrase_changed", function(phraseNum){
-        tag.currentPhrase = phraseNum
         tag.update()
 
       })
