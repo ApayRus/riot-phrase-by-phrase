@@ -2,20 +2,23 @@
   <div id="mediaInput">
     <h3>Media Link: </h3>
     <form>
-      <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
       <div name="mediaType">{mediaType}</div>
+      <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
+
 
       <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></audio><br />
       <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ontimeupdate={timeUpdate} ></video><br />
+      <div if={ mediaType=="youtube"} id="player"></div>
+      <div id="subtitles">
+        <div id="subs-in-lang-1">{subs}</div>
+      </div>
       <div id="playerControls">
         <button id="prevButton" class="playerNav" onclick={prevClicked}>Prev</button>
         <button id="repeatButton" class="playerNav" onclick={repeatClicked}>Repeat</button>
         <button id="nextButton" class="playerNav" onclick={nextClicked}>Next</button>
         <div class="playerNav">{currentPhraseNum}</div>
       </div>
-      <div id="subtitles">
-        <div id="subs-in-lang-1">{subs}</div>
-      </div>
+
       <div id="currentTime">{ct}</div>
       <button onclick={setTiming}>Add time interval</button>
     </form>
@@ -30,7 +33,11 @@
       //tag.media = tag.root.querySelector("#media")
 
       tag.mediaType = Media.type(tag.link.value)
-      Media.setMedia(tag[tag.mediaType+"Element"])
+      if ( (tag.mediaType == 'audio') || (tag.mediaType == 'video') )
+        Media.setMedia(tag[tag.mediaType + "Element"])
+      if ( tag.mediaType == 'youtube')
+        Youtube.loadYoutubeApi()
+
     }
 
     tag.timeUpdate = function() {
@@ -38,9 +45,26 @@
     }
 
     tag.setTiming = function() {
-      var i = Phrases.length()-1
-      Phrases.push({word0: 0, word1:0, timingStart:  Phrases.getPhrase(i).timingEnd, timingEnd: tag.ct, text: ""})
-      //console.log("i: ", i, "")
+      var curPhraseNum = Phrases.getCurrentPhraseNum()
+      var prevPhrase = Phrases.getPhrase(curPhraseNum - 1)
+
+      if(curPhraseNum > Phrases.length()) {
+          Media.pause()
+          Phrases.push({
+                        timingStart:  prevPhrase.timingEnd,
+                        timingEnd: Media.getCurrentTime().toFixed(2),
+                        text: ""
+                        })
+      }
+
+      else {
+        Phrases.updatePhrase(curPhraseNum, {
+                          "timingStart": prevPhrase.timingEnd,
+                          "timingEnd": Media.getCurrentTime().toFixed(2)
+                        })
+      }
+
+
     }
 
     tag.nextClicked = function(){
@@ -58,9 +82,12 @@
       Media.playPhrase(cf)
     }
 
-    Phrases.on("current_phrase_changed", function(phraseNum){
+    Phrases.on("currentPhraseChanged", function(phraseNum){
         tag.currentPhraseNum = phraseNum
-        tag.subs = Phrases.getPhrase(phraseNum).text
+        try {
+          tag.subs = Phrases.getPhrase(phraseNum).text
+        }
+        catch(e){}
         tag.update()
 
       })

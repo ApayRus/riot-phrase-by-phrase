@@ -13,7 +13,7 @@ Phrases = new function() {
 
   this.setCurrentPhrase = function(phraseNum){
     this.currentPhrase = phraseNum
-    this.trigger('current_phrase_changed', phraseNum)
+    this.trigger('currentPhraseChanged', phraseNum)
   }
 
   this.getCurrentPhraseNum = function() {
@@ -42,7 +42,7 @@ Phrases = new function() {
 }
 
   this.length = function() {
-    return this.phrases.length
+    return this.phrases.length-1
   }
 
 

@@ -61,5 +61,12 @@ audio, video {width : 100% ;}
 }
 
 #contentTable .active {
-  background: wheat; 
+  background: wheat;
+}
+
+#subtitles {
+  width: 100%;
+  background: black;
+  color: white;
+  text-align: center; 
 }

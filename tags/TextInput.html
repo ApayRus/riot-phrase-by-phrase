@@ -1,15 +1,17 @@
 <TextInput>
   <div id="textInput">
     <textarea name="textinput" oninput={inputEdit} placeholder="Please, input text..."></textarea><br />
-    <button onclick={readSubtitles}>Прочитать субтитры</button>
+    <button onclick={readSubtitles}>Прочитать субтитры</button><br />
+    <button onclick={readTextArticle}>Прочитать сплошной текст</button><br />
+    <button onclick={readTextLineByLine}>Прочитать текст построчно</button>
   </div>
 
 <script>
   tag = this
 
-  tag.inputEdit = function(){
+  tag.readTextArticle = function(){
 
-    //Words.set(tag.textinput.value.split(/\s/))
+    Words.set(tag.textinput.value.split(/\s/))
     tag.update();
   }
 
@@ -20,6 +22,14 @@
       Phrases.set(Subtitles.parseWebvttSrt(sub_text));
     else if(sub_type == "ass")
       Phrases.set(Subtitles.parseAss(sub_text));
+  }
+
+  tag.readTextLineByLine = function() {
+    var text_array = tag.textinput.value.split("\n")
+    text_array.unshift("")
+    for (var i=1; i<text_array.length; i++) {
+      Phrases.push ({text: text_array[i], timingStart: 0, timingEnd: 10000})
+    }
   }
 
 </script>

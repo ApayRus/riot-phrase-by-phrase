@@ -49,23 +49,24 @@ var med = this
   }
 
 
-  function mediaOnTimeUpdate(media, play_mode){
+  function mediaOnTimeUpdate(media, play_mode) {
 
 
       var currentPhraseNum = Phrases.getCurrentPhraseNum()
       var phrase = Phrases.getPhrase(currentPhraseNum)
-
+      try {
         if(media.currentTime >= phrase.timingEnd){
 
             if(play_mode == "stream") {
               Phrases.setCurrentPhrase(currentPhraseNum + 1)
-              console.log(Phrases.getCurrentPhraseNum())
             }
             else if(play_mode == "phrase"){
               media.pause()
             }
-
         }
+      }
+      catch(e){}
+
 
     }
 
