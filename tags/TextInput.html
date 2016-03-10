@@ -12,6 +12,9 @@
   tag.readTextArticle = function(){
 
     Words.set(tag.textinput.value.split(/\s/))
+
+    if(Subtitles.languageDetector(tag.textinput.value) == 'arabic') Words.setLang("arabic")
+
     tag.update();
   }
 
@@ -31,6 +34,7 @@
       Phrases.push ({text: text_array[i], timingStart: 0, timingEnd: 10000})
     }
   }
+
 
 </script>
 

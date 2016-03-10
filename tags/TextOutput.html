@@ -1,5 +1,5 @@
 <TextOutput>
-  <div name="text-output" id="textOutput">
+  <div name="text-output" id="textOutput" class={arabic : Words.getLang()=="arabic"}>
     <virtual each={ word, wordNum in Words.get() }>
       <div class="word-block">
         <div if={ word.trim()!=""} class="word {Words.getWordStatus(wordNum)}" onclick={wordClicked}>{word} </div>

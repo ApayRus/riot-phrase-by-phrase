@@ -9,6 +9,17 @@ Words = new function(){
     this.trigger('words_updated')
   }
 
+  this.setLang = function(lang){
+    this.lang = lang
+    this.trigger('words_updated')
+  }
+
+  this.getLang = function(){
+    return this.lang
+  }
+
+
+
   this.get = function(){
     return this.words
   }

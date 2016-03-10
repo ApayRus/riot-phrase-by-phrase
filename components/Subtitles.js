@@ -66,4 +66,10 @@ Subtitles = new function(){
     return (parseFloat(time_array[2]) + parseFloat(time_array[1]*60) + parseFloat(time_array[0]*3600)).toFixed(2)
   }
 
+  this.languageDetector = function(text) {
+    if (/[ا-ي]/.test(text)) return "arabic"
+    if (/[а-я]/.test(text)) return "cyrilic"
+    if (/[a-z]/.test(text)) return "latin"
+  }
+
 }
