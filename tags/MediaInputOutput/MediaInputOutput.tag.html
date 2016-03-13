@@ -9,14 +9,17 @@
       <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ></audio><br />
       <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ></video><br />
       <div if={ mediaType=="youtube"} id="player"></div>
-      <PlayerControls currentphrase={this.currentPhraseNum} subs={ {original: this.subs, translation: this.subs_translation} } ></PlayerControls>
+      <PlayerControls currentphrase={this.currentPhraseNum} subs-original={this.subs_original} subs-translation={this.subs_translation} } ></PlayerControls>
     </form>
   </div>
 
   <script>
+
     var tag = this
     tag.mediaType = ""
     tag.currentPhraseNum = 1
+    tag.subs_original = ""
+    tag.subs_translation = ""
 
     tag.readLink = function() {
       //tag.media = tag.root.querySelector("#media")
@@ -35,7 +38,7 @@
         tag.currentPhraseNum = phraseNum
 
         try {
-          tag.subs = Phrases.getPhrase(phraseNum).text
+          tag.subs_original = Phrases.getPhrase(phraseNum).text
           tag.subs_translation = Phrases.getTranslation(phraseNum)
 
         }

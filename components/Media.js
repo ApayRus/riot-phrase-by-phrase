@@ -49,7 +49,11 @@ var med = this
   }
 
   this.getLink = function() {
-    return this.media.src 
+    return this.media.src
+  }
+
+  this.setPlaybackRate = function(rate) {
+    this.media.playbackRate = rate
   }
 
 

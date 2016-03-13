@@ -41,10 +41,13 @@ riot.tag2('contenttable', '<div id="contentTable"> <table> <tr> <th></th> <th>Pl
 
 }, '{ }');
 
-riot.tag2('mediainputoutput', '<div id="mediaInput"> <h3>Media Link: </h3> <form> <div name="mediaType">{mediaType}</div> <input placeholder="URL to media" name="link" oninput="{readLink}"></input><br> <audio if="{mediaType==⁗audio⁗}" name="audioElement" controls="1" riot-src="{this.link.value}"></audio><br> <video if="{mediaType==⁗video⁗}" name="videoElement" controls="1" riot-src="{this.link.value}"></video><br> <div if="{mediaType==⁗youtube⁗}" id="player"></div> <playercontrols currentphrase="{this.currentPhraseNum}" subs="{{original: this.subs, translation: this.subs_translation}}"></PlayerControls> </form> </div>', '', '', function(opts) {
+riot.tag2('mediainputoutput', '<div id="mediaInput"> <h3>Media Link: </h3> <form> <div name="mediaType">{mediaType}</div> <input placeholder="URL to media" name="link" oninput="{readLink}"></input><br> <audio if="{mediaType==⁗audio⁗}" name="audioElement" controls="1" riot-src="{this.link.value}"></audio><br> <video if="{mediaType==⁗video⁗}" name="videoElement" controls="1" riot-src="{this.link.value}"></video><br> <div if="{mediaType==⁗youtube⁗}" id="player"></div> <playercontrols currentphrase="{this.currentPhraseNum}" subs-original="{this.subs_original}" subs-translation="{this.subs_translation}"></PlayerControls> </form> </div>', '', '', function(opts) {
+
     var tag = this
     tag.mediaType = ""
     tag.currentPhraseNum = 1
+    tag.subs_original = ""
+    tag.subs_translation = ""
 
     tag.readLink = function() {
 
@@ -61,7 +64,7 @@ riot.tag2('mediainputoutput', '<div id="mediaInput"> <h3>Media Link: </h3> <form
         tag.currentPhraseNum = phraseNum
 
         try {
-          tag.subs = Phrases.getPhrase(phraseNum).text
+          tag.subs_original = Phrases.getPhrase(phraseNum).text
           tag.subs_translation = Phrases.getTranslation(phraseNum)
 
         }
@@ -73,7 +76,7 @@ riot.tag2('mediainputoutput', '<div id="mediaInput"> <h3>Media Link: </h3> <form
 
 }, '{ }');
 
-riot.tag2('playercontrols', '<div id="subtitles"> <div id="subs-original">{opts.subs.original}</div> <div id="subs-translation">{opts.subs.translation}</div> </div> <button id="prevButton" class="playerNav" onclick="{prevClicked}" title="previous phrase">←</button> <button id="repeatButton" class="playerNav" onclick="{repeatClicked}" title="repeat phrase">↑</button> <button id="nextButton" class="playerNav" onclick="{nextClicked}" title="next phrase">→</button> <button onclick="{setTiming}" title="Add time interval">↵</button> <button class="playerNav" title="current phrase">{opts.currentphrase}/{Phrases.length()}</button>', '', '', function(opts) {
+riot.tag2('playercontrols', '<div id="subtitles"> <div id="subs-original">{opts.subsOriginal}</div> <div id="subs-translation">{opts.subsTranslation}</div> </div> <button id="prevButton" class="playerNav" onclick="{prevClicked}" title="previous phrase">←</button> <button id="repeatButton" class="playerNav" onclick="{repeatClicked}" title="repeat phrase">↑</button> <button id="nextButton" class="playerNav" onclick="{nextClicked}" title="next phrase">→</button> <button onclick="{setTiming}" title="Add time interval">↵</button> <button class="playerNav" title="current phrase">{opts.currentphrase}/{Phrases.length()}</button> <input name="playbackRate" title="playback rate" class="playerNav" step="0.1" oninput="{playbackRateChanged}" value="1" type="number"></input>', '', '', function(opts) {
 
   var tag = this
 
@@ -111,6 +114,10 @@ riot.tag2('playercontrols', '<div id="subtitles"> <div id="subs-original">{opts.
                                 "timingEnd": Media.getCurrentTime().toFixed(2)
                               })
             }
+      }
+
+      tag.playbackRateChanged = function(e){
+        Media.setPlaybackRate(e.target.value)
       }
 
       Phrases.on("updated", function() {

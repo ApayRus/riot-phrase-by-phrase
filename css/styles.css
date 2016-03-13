@@ -55,11 +55,15 @@ input.original.pair {
 
 input.translation.pair {
   border-top: none;
-  color: gray; 
+  color: gray;
 }
 
 .playerNav {
   display: inline-block;
+}
+
+input[name="playbackRate"] {
+  width: 40px; 
 }
 
 audio, video {width : 100% ;}
