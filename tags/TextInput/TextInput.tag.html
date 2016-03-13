@@ -1,0 +1,19 @@
+<TextInput>
+  <div id="textInput">
+    <textarea name="textinput" oninput={inputEdit} placeholder="Please, input text..."></textarea><br />
+    <p>Choose action with inputted text: <TextAnalyze text={this.textinput.value}></TextAnalyze></p>
+    <p>Choose source language: <SelectLanguage target="original"></SelectLanguage></p>
+    <p>Add translation: <SelectLanguage target="translation"></SelectLanguage></p>
+    <button onclick={saveResults}></button>
+  </div>
+
+  <script>
+    var tag = this
+
+    tag.inputEdit = function(){
+      tag.update()
+    }
+    
+  </script>
+
+</TextInput>

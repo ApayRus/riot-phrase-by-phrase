@@ -5,22 +5,25 @@
         <th></th>
         <th>Play</th>
         <th>Text</th>
-        <th>t0</th>
-        <th>t1</th>
-        <th>d</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Duration</th>
       </tr>
-      <tr each={phrase, phraseNum in Phrases.get()} if={phraseNum > 0} class={active : currentPhraseNum == phraseNum} >
-        <td class="num-in-table">{phraseNum}</td>
-        <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
-        <td class="table-phrase"><input name="text" oninput={onEditText} value={phrase.text} ></input></td>
-        <td class="table-timing"><input name="timingStart" type="number" step=0.1 value={phrase.timingStart} oninput={onEditTimingStart}></input></td>
-        <td class="table-timing"><input name="timingEnd" type="number" step=0.1 value={phrase.timingEnd} oninput={onEditTimingEnd}></input></td>
-        <td>{(phrase.timingEnd-phrase.timingStart).toFixed(2)}</td>
+      <tr each={ phrase, phraseNum in Phrases.get() } if={phraseNum > 0} class={active : currentPhraseNum == phraseNum} >
+          <td class="num-in-table">{phraseNum}</td>
+          <td class="play-in-table" onclick={playInTable}>&nbsp;</td>
+          <td class="table-phrase">
+              <input name="text" oninput={onEditText} value={phrase.text} class="original {pair : show_translation}"></input>
+              <input show={show_translation} name="translation" oninput={onEditTranslation} class="translation {pair : show_translation}" value={Phrases.getTranslation(phraseNum)} ></input>
+          </td>
+          <td class="table-timing"><input name="timingStart" type="number" step=0.1 value={phrase.timingStart} oninput={onEditTimingStart}></input></td>
+          <td class="table-timing"><input name="timingEnd" type="number" step=0.1 value={phrase.timingEnd} oninput={onEditTimingEnd}></input></td>
+          <td>{(phrase.timingEnd-phrase.timingStart).toFixed(2)}</td>
       </tr>
     </table>
   </div>
-
   <script>
+
     var tag = this
 
     tag.playInTable = function(event) {
@@ -29,6 +32,10 @@
 
     tag.onEditText = function(event) {
       Phrases.updatePhrase(event.item.phraseNum,{"text": this.text.value })
+    }
+
+    tag.onEditTranslation = function(event) {
+      Phrases.updateTranslation(event.item.phraseNum, this.translation.value)
     }
 
     tag.onEditTimingStart = function(event) {
@@ -47,8 +54,14 @@
     Phrases.on("currentPhraseChanged", function(phraseNum){
         tag.currentPhraseNum = phraseNum
         tag.update()
-        
+
       })
+
+    Phrases.on("language_changed", function(lang){
+        if (lang) tag.show_translation = true
+        else tag.show_translation = false
+        tag.update()
+    })
 
   </script>
 

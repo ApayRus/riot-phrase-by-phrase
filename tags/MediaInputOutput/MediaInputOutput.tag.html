@@ -1,0 +1,51 @@
+<MediaInputOutput>
+  <div id="mediaInput">
+    <h3>Media Link: </h3>
+    <form>
+      <div name="mediaType">{mediaType}</div>
+      <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
+
+
+      <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ></audio><br />
+      <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ></video><br />
+      <div if={ mediaType=="youtube"} id="player"></div>
+      <PlayerControls currentphrase={this.currentPhraseNum} subs={this.subs}></PlayerControls>
+    </form>
+  </div>
+
+  <script>
+    var tag = this
+    tag.mediaType = ""
+    tag.currentPhraseNum = 1
+
+    tag.readLink = function() {
+      //tag.media = tag.root.querySelector("#media")
+
+      tag.mediaType = Media.type(tag.link.value)
+      if ( (tag.mediaType == 'audio') || (tag.mediaType == 'video') )
+        Media.setMedia(tag[tag.mediaType + "Element"])
+      if ( tag.mediaType == 'youtube')
+        Youtube.loadYoutubeApi()
+
+    }
+
+
+    Phrases.on("currentPhraseChanged", function(phraseNum){
+
+        tag.currentPhraseNum = phraseNum
+
+        try {
+          tag.subs = Phrases.getPhrase(phraseNum).text
+
+        }
+        catch(e){}
+
+        //console.log("currentPhraseChanged", this.currentPhraseNum)
+        tag.update()
+
+      })
+
+  </script>
+
+
+</MediaInputOutput>

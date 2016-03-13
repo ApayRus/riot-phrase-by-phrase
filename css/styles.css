@@ -42,10 +42,20 @@
 
 .table-timing input{
   width: 80px;
+  height: 100%;
 }
 
 .table-phrase input {
   width: 350px;
+}
+
+input.original.pair {
+  border-bottom: none;
+}
+
+input.translation.pair {
+  border-top: none;
+  color: gray; 
 }
 
 .playerNav {

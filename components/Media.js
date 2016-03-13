@@ -48,10 +48,12 @@ var med = this
     else return "unknown"
   }
 
+  this.getLink = function() {
+    return this.media.src 
+  }
+
 
   function mediaOnTimeUpdate(media, play_mode) {
-
-
       var currentPhraseNum = Phrases.getCurrentPhraseNum()
       var phrase = Phrases.getPhrase(currentPhraseNum)
       try {

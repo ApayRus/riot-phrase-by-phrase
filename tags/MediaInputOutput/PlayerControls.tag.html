@@ -1,0 +1,61 @@
+<PlayerControls>
+
+  <div id="subtitles">
+    <div id="subs-original">{opts.subs}</div>
+  </div>
+  <button id="prevButton" class="playerNav" onclick={prevClicked} title="previous phrase">←</button>
+  <button id="repeatButton" class="playerNav" onclick={repeatClicked} title="repeat phrase">↑</button>
+  <button id="nextButton" class="playerNav" onclick={nextClicked} title="next phrase">→</button>
+  <button onclick={setTiming} title="Add time interval">↵</button>
+  <button class="playerNav" title="current phrase">{opts.currentphrase}/{phrasesCount}</button>
+
+
+  <script>
+
+  var tag = this
+
+      tag.nextClicked = function(){
+        var cf = Phrases.getCurrentPhraseNum()
+        Media.playPhrase(cf+1)
+      }
+
+      tag.prevClicked = function(){
+        var cf = Phrases.getCurrentPhraseNum()
+        Media.playPhrase(cf-1)
+      }
+
+      tag.repeatClicked = function(){
+        var cf = Phrases.getCurrentPhraseNum()
+        Media.playPhrase(cf)
+      }
+
+
+      tag.setTiming = function() {
+        var curPhraseNum = Phrases.getCurrentPhraseNum()
+        var prevPhrase = Phrases.getPhrase(curPhraseNum - 1)
+
+            if(curPhraseNum > Phrases.length()) {
+                Media.pause()
+                Phrases.push({
+                              timingStart:  prevPhrase.timingEnd,
+                              timingEnd: Media.getCurrentTime().toFixed(2),
+                              text: ""
+                              })
+            }
+
+            else {
+              Phrases.updatePhrase(curPhraseNum, {
+                                "timingStart": prevPhrase.timingEnd,
+                                "timingEnd": Media.getCurrentTime().toFixed(2)
+                              })
+            }
+      }
+
+      Phrases.on("updated", function() {
+        tag.phrasesCount = Phrases.length()
+        tag.update()
+      })
+
+  </script>
+
+</PlayerControls>

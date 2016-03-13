@@ -1,0 +1,54 @@
+<TextAnalyze>
+  <select onchange={inputedTextAnalyze}>
+    <option></option>
+    <option value="read_subs">Read subtitles (with timing)</option>
+    <option value="read_lines">Read line by line (without timing)</option>
+    <option value="read_words">Read text article (word by word)</option>
+  </select>
+
+
+
+
+  <script>
+
+    var tag = this
+
+    tag.inputedTextAnalyze = function(e) {
+        if(e.target.value == "read_subs") tag.readSubtitles(opts.text)
+        if(e.target.value == "read_lines") tag.readTextLineByLine(opts.text)
+        if(e.target.value == "read_words") tag.readWordByWord(opts.text)
+
+    }
+
+
+    tag.readSubtitles = function(sub_text){
+
+      sub_type = Subtitles.type(sub_text)
+      if( (sub_type == "srt" ) || (sub_type == "webvtt" ) )
+        Phrases.set(Subtitles.parseWebvttSrt(sub_text));
+      else if(sub_type == "ass")
+        Phrases.set(Subtitles.parseAss(text));
+    }
+
+    tag.readTextLineByLine = function(text) {
+
+      var text_array = text.split("\n")
+      text_array.unshift("")
+      for (var i=1; i<text_array.length; i++) {
+        Phrases.push ({text: text_array[i], timingStart: 0, timingEnd: 10000})
+      }
+    }
+
+    tag.readWordByWord = function(text){
+
+      Words.set(text.split(/\s/))
+
+      if(Subtitles.languageDetector(text) == 'arabic') Words.setLang("arabic")
+
+
+    }
+
+
+  </script>
+
+</TextAnalyze>

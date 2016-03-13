@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <MediaInput></MediaInput>
+  <MediaInputOutput></MediaInputOutput>
   <ContentTable></ContentTable>
   <TextInput></TextInput>
   <TextOutput></TextOutput>
@@ -23,10 +23,13 @@
 <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
 
 <!-- подключаем компоненты -->
-<script type="riot/tag" src="tags/MediaInput.html"></script>
+<script type="riot/tag" src="tags/MediaInputOutput/MediaInputOutput.tag.html"></script>
+<script type="riot/tag" src="tags/MediaInputOutput/PlayerControls.tag.html"></script>
 <script type="riot/tag" src="tags/ContentTable.html"></script>
-<script type="riot/tag" src="tags/TextInput.html"></script>
+<script type="riot/tag" src="tags/TextInput/TextInput.tag.html"></script>
+<script type="riot/tag" src="tags/TextInput/TextAnalyze/TextAnalyze.tag.html"></script>
 <script type="riot/tag" src="tags/TextOutput.html"></script>
+<script type="riot/tag" src="tags/SelectLanguage/SelectLanguage.tag.html"></script>
 <script src="components/Phrases.js"></script>
 <script src="components/Words.js"></script>
 <script src="components/Subtitles.js"></script>
@@ -42,13 +45,16 @@
   ]
 
 riot.compile(function(){
-
-  AudioInput = riot.mount('MediaInput')[0]
+  tags = riot.mount('*')
+/*
+  MediaInputOutput = riot.mount('MediaInputOutput')[0]
   ContentTable = riot.mount('ContentTable')[0]
+  PlayerControls = riot.mount('PlayerControls')[0]
   TextInput = riot.mount('TextInput')[0]
   TextOutput = riot.mount('TextOutput')[0]
+  SelectLanguage = riot.mount('SelectLanguage')[0]
   //TextOutput = riot.mount('TextOutput', {words: ["This", "is", "Bbc", "news"]})[0]
-
+*/
 })
 
 

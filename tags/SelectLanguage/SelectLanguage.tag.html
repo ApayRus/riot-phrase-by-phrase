@@ -1,0 +1,20 @@
+<SelectLanguage>
+  <select oninput={onSelectLanguage}>
+    <option> </option>
+    <option>Russian</option>
+    <option>English</option>
+    <option>Arabic</option>
+  </select>
+
+
+  <script>
+    tag = this
+
+    tag.onSelectLanguage = function(e){
+      if(opts.target=="original") Phrases.setTranslationLanguage(e.target.value)
+      else if(opts.target=="translation") Phrases.setTranslationLanguage(e.target.value)
+    }
+  </script>
+
+
+</SelectLanguage>
