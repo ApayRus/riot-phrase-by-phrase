@@ -4,7 +4,8 @@
     <p>Choose action with inputted text: <TextAnalyze text={this.textinput.value}></TextAnalyze></p>
     <p>Choose source language: <SelectLanguage target="original"></SelectLanguage></p>
     <p>Add translation: <SelectLanguage target="translation"></SelectLanguage></p>
-    <button onclick={saveResults}></button>
+    <button onclick={saveResults} >Save results</button>
+    <button onclick={restoreResults} >Restore from localStorage</button>
   </div>
 
   <script>
@@ -13,7 +14,15 @@
     tag.inputEdit = function(){
       tag.update()
     }
-    
+
+    tag.saveResults = function(){
+      Phrases.saveToLocalStorage(Media.getLink())
+    }
+
+    tag.restoreResults = function(){
+      Phrases.restoreFromLocalStorage(Media.getLink())
+    }
+
   </script>
 
 </TextInput>

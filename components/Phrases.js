@@ -62,7 +62,7 @@ Phrases = new function() {
       }
       riot.update()
     }
-    catch(e){console.log(e)}
+    catch(e){console.log("No data for restore in localStorage")}
 
   }
 
@@ -72,7 +72,7 @@ Phrases = new function() {
   this.translations.translations = [0];
 
   this.setTranslationLanguage = function(lang){
-    this.trigger("language_changed", lang)
+    this.trigger("translation_language_changed", lang)
     this.translations.language = lang
   }
 
