@@ -1,16 +1,11 @@
 <MediaInputOutput>
   <div id="mediaInput">
-    <h3>Media Link: </h3>
-    <form>
-      <div name="mediaType">{mediaType}</div>
-      <input placeholder="URL to media" name="link" oninput={readLink}></input><br />
-
+    <p>Add link to media: <input placeholder="URL to media" name="link" oninput={readLink}></input> <span name="mediaType"> {mediaType}</span></p>
 
       <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ></audio><br />
       <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ></video><br />
       <div if={ mediaType=="youtube"} id="player"></div>
       <PlayerControls currentphrase={this.currentPhraseNum} subs-original={this.subs_original} subs-translation={this.subs_translation} } ></PlayerControls>
-    </form>
   </div>
 
   <script>

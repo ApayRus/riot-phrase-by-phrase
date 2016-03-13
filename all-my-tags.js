@@ -36,12 +36,13 @@ riot.tag2('contenttable', '<div id="contentTable"> <table> <tr> <th></th> <th>Pl
     Phrases.on("translation_language_changed", function(lang){
         if (lang) tag.show_translation = true
         else tag.show_translation = false
+        console.log(Phrases.getTranslationLanguage())
         tag.update()
     })
 
 }, '{ }');
 
-riot.tag2('mediainputoutput', '<div id="mediaInput"> <h3>Media Link: </h3> <form> <div name="mediaType">{mediaType}</div> <input placeholder="URL to media" name="link" oninput="{readLink}"></input><br> <audio if="{mediaType==⁗audio⁗}" name="audioElement" controls="1" riot-src="{this.link.value}"></audio><br> <video if="{mediaType==⁗video⁗}" name="videoElement" controls="1" riot-src="{this.link.value}"></video><br> <div if="{mediaType==⁗youtube⁗}" id="player"></div> <playercontrols currentphrase="{this.currentPhraseNum}" subs-original="{this.subs_original}" subs-translation="{this.subs_translation}"></PlayerControls> </form> </div>', '', '', function(opts) {
+riot.tag2('mediainputoutput', '<div id="mediaInput"> <p>Add link to media: <input placeholder="URL to media" name="link" oninput="{readLink}"></input> <span name="mediaType"> {mediaType}</span></p> <audio if="{mediaType==⁗audio⁗}" name="audioElement" controls="1" riot-src="{this.link.value}"></audio><br> <video if="{mediaType==⁗video⁗}" name="videoElement" controls="1" riot-src="{this.link.value}"></video><br> <div if="{mediaType==⁗youtube⁗}" id="player"></div> <playercontrols currentphrase="{this.currentPhraseNum}" subs-original="{this.subs_original}" subs-translation="{this.subs_translation}"></PlayerControls> </div>', '', '', function(opts) {
 
     var tag = this
     tag.mediaType = ""
@@ -126,7 +127,7 @@ riot.tag2('playercontrols', '<div id="subtitles"> <div id="subs-original">{opts.
 
 }, '{ }');
 
-riot.tag2('selectlanguage', '<select oninput="{onSelectLanguage}"> <option> </option> <option>Russian</option> <option>English</option> <option>Arabic</option> </select>', '', '', function(opts) {
+riot.tag2('selectlanguage', '<select oninput="{onSelectLanguage}"> <option> </option> <option>ru</option> <option>en</option> <option>ar</option> </select>', '', '', function(opts) {
     tag = this
 
     tag.onSelectLanguage = function(e){

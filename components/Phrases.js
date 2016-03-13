@@ -68,25 +68,31 @@ Phrases = new function() {
   }
 
   ///////  T R A N S L A T I O N S /////////
+  // Phrases = {   translations: { ru: ["фраза1", "фраза2", "фраза3"], en: ["phrase1", "phrase2", "phrase3"]}  }
   this.translations = {}
-  this.translations.language = ""
-  this.translations.translations = [0];
+  this.currentTranslationLanguage = ""
+
 
   this.setTranslationLanguage = function(lang){
+    //if setted language not exist , we add object , else: we just
+    if (!this.translations[lang]) this.translations[lang] = []
+     
+    this.currentTranslationLanguage = lang
     this.trigger("translation_language_changed", lang)
-    this.translations.language = lang
   }
 
   this.getTranslationLanguage = function(){
-    return this.translations.language
+    return this.currentTranslationLanguage
   }
 
   this.getTranslation = function(phraseNum) {
-    return this.translations.translations[phraseNum]
+    var lang = this.currentTranslationLanguage
+    return this.translations[lang][phraseNum]
   }
 
   this.updateTranslation = function(phraseNum, text) {
-    this.translations.translations[phraseNum] = text
+    var lang = this.currentTranslationLanguage
+    this.translations[lang][phraseNum] = text
   }
 
 
