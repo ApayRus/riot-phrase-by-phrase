@@ -60,6 +60,7 @@ Phrases = new function() {
       for (key in restoredPhrases) {
           this[key] = restoredPhrases[key]
       }
+      Phrases.setCurrentPhrase(0)
       riot.update()
     }
     catch(e){console.log("No data for restore in localStorage")}

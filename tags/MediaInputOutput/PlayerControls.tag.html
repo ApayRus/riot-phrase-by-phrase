@@ -1,13 +1,14 @@
 <PlayerControls>
 
   <div id="subtitles">
-    <div id="subs-original">{opts.subs}</div>
+    <div id="subs-original">{opts.subs.original}</div>
+    <div id="subs-translation">{opts.subs.translation}</div>
   </div>
   <button id="prevButton" class="playerNav" onclick={prevClicked} title="previous phrase">←</button>
   <button id="repeatButton" class="playerNav" onclick={repeatClicked} title="repeat phrase">↑</button>
   <button id="nextButton" class="playerNav" onclick={nextClicked} title="next phrase">→</button>
   <button onclick={setTiming} title="Add time interval">↵</button>
-  <button class="playerNav" title="current phrase">{opts.currentphrase}/{phrasesCount}</button>
+  <button class="playerNav" title="current phrase">{opts.currentphrase}/{Phrases.length()}</button>
 
 
   <script>
@@ -52,7 +53,6 @@
       }
 
       Phrases.on("updated", function() {
-        tag.phrasesCount = Phrases.length()
         tag.update()
       })
 

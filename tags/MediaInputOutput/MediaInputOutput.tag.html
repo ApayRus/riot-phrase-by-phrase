@@ -9,7 +9,7 @@
       <audio if={ mediaType=="audio"} name="audioElement" controls=1 src={this.link.value} ></audio><br />
       <video if={ mediaType=="video"} name="videoElement" controls=1 src={this.link.value} ></video><br />
       <div if={ mediaType=="youtube"} id="player"></div>
-      <PlayerControls currentphrase={this.currentPhraseNum} subs={this.subs}></PlayerControls>
+      <PlayerControls currentphrase={this.currentPhraseNum} subs={ {original: this.subs, translation: this.subs_translation} } ></PlayerControls>
     </form>
   </div>
 
@@ -36,6 +36,7 @@
 
         try {
           tag.subs = Phrases.getPhrase(phraseNum).text
+          tag.subs_translation = Phrases.getTranslation(phraseNum)
 
         }
         catch(e){}
