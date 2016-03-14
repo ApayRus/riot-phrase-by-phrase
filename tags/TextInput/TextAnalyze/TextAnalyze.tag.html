@@ -15,7 +15,7 @@
 
     tag.inputedTextAnalyze = function(e) {
         if(e.target.value == "read_subs") tag.readSubtitles(opts.text)
-        if(e.target.value == "read_lines") tag.readTextLineByLine(opts.text)
+        if(e.target.value == "read_lines") Phrases.readTextLineByLine(opts.text)
         if(e.target.value == "read_words") tag.readWordByWord(opts.text)
 
     }
@@ -30,14 +30,6 @@
         Phrases.set(Subtitles.parseAss(text));
     }
 
-    tag.readTextLineByLine = function(text) {
-
-      var text_array = text.split("\n")
-      text_array.unshift("")
-      for (var i=1; i<text_array.length; i++) {
-        Phrases.push ({text: text_array[i], timingStart: 0, timingEnd: 10000})
-      }
-    }
 
     tag.readWordByWord = function(text){
 

@@ -102,7 +102,7 @@ riot.tag2('playercontrols', '<div id="subtitles"> <div id="subs-original">{opts.
 
             if(curPhraseNum > Phrases.length()) {
                 Media.pause()
-                Phrases.push({
+                Phrases.updatePhrase(curPhraseNum, {
                               timingStart:  prevPhrase.timingEnd,
                               timingEnd: Media.getCurrentTime().toFixed(2),
                               text: ""
@@ -142,7 +142,7 @@ riot.tag2('textanalyze', '<select onchange="{inputedTextAnalyze}"> <option></opt
 
     tag.inputedTextAnalyze = function(e) {
         if(e.target.value == "read_subs") tag.readSubtitles(opts.text)
-        if(e.target.value == "read_lines") tag.readTextLineByLine(opts.text)
+        if(e.target.value == "read_lines") Phrases.readTextLineByLine(opts.text)
         if(e.target.value == "read_words") tag.readWordByWord(opts.text)
 
     }
@@ -154,15 +154,6 @@ riot.tag2('textanalyze', '<select onchange="{inputedTextAnalyze}"> <option></opt
         Phrases.set(Subtitles.parseWebvttSrt(sub_text));
       else if(sub_type == "ass")
         Phrases.set(Subtitles.parseAss(text));
-    }
-
-    tag.readTextLineByLine = function(text) {
-
-      var text_array = text.split("\n")
-      text_array.unshift("")
-      for (var i=1; i<text_array.length; i++) {
-        Phrases.push ({text: text_array[i], timingStart: 0, timingEnd: 10000})
-      }
     }
 
     tag.readWordByWord = function(text){
@@ -197,10 +188,10 @@ riot.tag2('textoutput', '<div name="text-output" id="textOutput" class="{arabic 
 var tag = this
 
 tag.wordClicked = function (event) {
-  var prevPhrase = Phrases.getPhrase(Phrases.length())
+  var prevPhrase = Phrases.getPhrase(Phrases.getCurrentPhraseNum() - 1)
   var word0 = (Words.getWord(prevPhrase.word1 + 1).trim() != "") ? prevPhrase.word1 + 1 : prevPhrase.word1 + 2
 
-  Phrases.push({
+  Phrases.updatePhrase(Phrases.getCurrentPhraseNum(), {
                 word0: word0,
                 word1: event.item.wordNum,
                 timingStart:  prevPhrase.timingEnd,
@@ -214,4 +205,23 @@ Words.on('words_updated', function() {
   tag.update()
 })
 
+}, '{ }');
+
+riot.tag2('textsoriginaltranslation', '<textarea name="original"></textarea> <textarea name="translation"></textarea> <br> <button onclick="{readToPhrases}">Read to Phrases</button> <button onclick="{readFromPhrases}">Read from Phrases</button>', '', '', function(opts) {
+    var tag = this
+    tag.readFromPhrases = function(){
+
+      tag.original.value = Phrases.phrasesToText("text")
+      tag.translation.value = Phrases.translationsToText(Phrases.getTranslationLanguage())
+      var tx_height = Phrases.length()*32.8 + "px"
+      tag.original.style.height = tx_height
+      tag.translation.style.height = tx_height
+    }
+
+    tag.readToPhrases = function(){
+      Phrases.readTextLineByLine(tag.original.value)
+      Phrases.readTranslationFromText(tag.translation.value)
+    }
+
+    Phrases.on("translation_changed", function(){riot.update()})
 }, '{ }');

@@ -33,16 +33,24 @@ Phrases = new function() {
     return this.phrases[i]
   }
 
+/*
   this.push = function(phrase){
     this.phrases.push(phrase)
     this.trigger('updated')
   }
+*/
 
   this.updatePhrase = function(phraseNum, params) {
-    var phrase = this.getPhrase(phraseNum)
-    for (key in params) {
-        phrase[key] = params[key]
+    //if phrase exist we update it
+    try {
+      var phrase = this.getPhrase(phraseNum)
+      for (key in params) phrase[key] = params[key]
     }
+    //if not exist we push phrase
+    catch(e) {
+      this.phrases.push(params)
+    }
+
     this.trigger('updated')
 }
 
@@ -76,7 +84,7 @@ Phrases = new function() {
   this.setTranslationLanguage = function(lang){
     //if setted language not exist , we add object , else: we just
     if (!this.translations[lang]) this.translations[lang] = []
-     
+
     this.currentTranslationLanguage = lang
     this.trigger("translation_language_changed", lang)
   }
@@ -93,8 +101,39 @@ Phrases = new function() {
   this.updateTranslation = function(phraseNum, text) {
     var lang = this.currentTranslationLanguage
     this.translations[lang][phraseNum] = text
+    this.trigger("translation_changed")
   }
 
+  this.phrasesToText = function(key) {
+    return this.phrases.map(function(ph){return ph[key]}).slice(1).join("\n")
+  }
+
+  this.translationsToText = function(lang){
+    return this.translations[lang].slice(1).join("\n")
+  }
+
+
+  this.readTextLineByLine = function(text) {
+
+    var text_array = text.split("\n")
+    text_array.unshift("")
+    for (var i=1; i<text_array.length; i++) {
+      if (i > Phrases.length()) {
+        var updPh = {text: text_array[i], timingStart: 0, timingEnd: 10000}
+      }
+      else {
+        var updPh = {text: text_array[i]}
+      }
+      Phrases.updatePhrase (i, updPh)
+    }
+  }
+
+  this.readTranslationFromText = function(text) {
+    var text_array = text.split("\n")
+    text_array.unshift("")
+    this.translations[this.currentTranslationLanguage] = text_array
+    this.trigger("translation_changed")
+  }
 
 
 }

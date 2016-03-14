@@ -49,7 +49,7 @@ Subtitles = new function(){
     subs_array.unshift("ASS")
     for (var i=1; i < subs_array.length; i++) {
       line_array = subs_array[i].split(",")
-      //Dialogue: 0,0:00:13.22,0:01:02.37,Default,,0,0,0,, Арабский язык: системная симфония. 2-я серия.
+      //Dialogue: 0,0:00:13.22,0:01:02.37,Default,,0,0,0,, There is text of phrase in media 
       sub.timingStart = this.timeToSeconds(line_array[1])
       sub.timingEnd = this.timeToSeconds(line_array[2])
       sub.text = line_array[9]
@@ -60,7 +60,7 @@ Subtitles = new function(){
     return subs
 
   }
-
+  //00:00:06.960 --> 6.96
   this.timeToSeconds = function(time){
     var time_array = time.replace(/,/g,'.').split(":")
     return (parseFloat(time_array[2]) + parseFloat(time_array[1]*60) + parseFloat(time_array[0]*3600)).toFixed(2)

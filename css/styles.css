@@ -63,7 +63,7 @@ input.translation.pair {
 }
 
 input[name="playbackRate"] {
-  width: 40px; 
+  width: 40px;
 }
 
 audio, video {width : 100% ;}
@@ -88,4 +88,16 @@ audio, video {width : 100% ;}
 .arabic {
   direction: rtl;
   font-size: 150%;
+}
+
+textsoriginaltranslation textarea {
+    overflow-x: auto;
+    word-wrap: normal;
+    white-space: pre;
+    line-height: 2;
+    background-image: linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-size: 100% 32px;
+    font-family: Arial Unicode MS;
+    font-size: 16px;
+    width: 45%; 
 }

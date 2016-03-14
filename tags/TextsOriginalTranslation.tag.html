@@ -1,0 +1,25 @@
+<TextsOriginalTranslation>
+  <textarea name=original></textarea>
+  <textarea name=translation></textarea>
+  <br />
+  <button onclick={readToPhrases}>Read to Phrases</button>
+  <button onclick={readFromPhrases}>Read from Phrases</button>
+  <script>
+    var tag = this
+    tag.readFromPhrases = function(){
+
+      tag.original.value = Phrases.phrasesToText("text")
+      tag.translation.value = Phrases.translationsToText(Phrases.getTranslationLanguage())
+      var tx_height = Phrases.length()*32.8 + "px"
+      tag.original.style.height = tx_height
+      tag.translation.style.height = tx_height
+    }
+
+    tag.readToPhrases = function(){
+      Phrases.readTextLineByLine(tag.original.value)
+      Phrases.readTranslationFromText(tag.translation.value)
+    }
+
+    Phrases.on("translation_changed", function(){riot.update()})
+  </script>
+</TextsOriginalTranslation>

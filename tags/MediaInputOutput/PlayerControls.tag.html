@@ -37,7 +37,7 @@
 
             if(curPhraseNum > Phrases.length()) {
                 Media.pause()
-                Phrases.push({
+                Phrases.updatePhrase(curPhraseNum, {
                               timingStart:  prevPhrase.timingEnd,
                               timingEnd: Media.getCurrentTime().toFixed(2),
                               text: ""

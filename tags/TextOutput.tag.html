@@ -19,10 +19,10 @@
 var tag = this
 
 tag.wordClicked = function (event) {
-  var prevPhrase = Phrases.getPhrase(Phrases.length())
+  var prevPhrase = Phrases.getPhrase(Phrases.getCurrentPhraseNum() - 1)
   var word0 = (Words.getWord(prevPhrase.word1 + 1).trim() != "") ? prevPhrase.word1 + 1 : prevPhrase.word1 + 2
 
-  Phrases.push({
+  Phrases.updatePhrase(Phrases.getCurrentPhraseNum(), {
                 word0: word0,
                 word1: event.item.wordNum,
                 timingStart:  prevPhrase.timingEnd,
