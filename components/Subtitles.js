@@ -4,7 +4,7 @@ Subtitles = new function(){
 
   this.type = function(text){
     if (/^WEBVTT/.test(text)) return "webvtt"
-    else if(/^\d\s+?\d\d:\d\d:\d\d\.\d\d\d --> \d\d:\d\d:\d\d\.\d\d\d/.test(text)) return "srt"
+    else if(/^\d\s+?\d\d:\d\d:\d\d,\d\d\d --> \d\d:\d\d:\d\d,\d\d\d/m.test(text)) return "srt"
     else if(/Dialogue: 0,\d:\d\d:\d\d.\d\d,\d:\d\d:\d\d.\d\d,Default,,0,0,0,,/.test(text)) return "ass"
     else if(/talk-transcript__fragment/.test(text)) return "ted"
     else return "unknown"
@@ -49,7 +49,7 @@ Subtitles = new function(){
     subs_array.unshift("ASS")
     for (var i=1; i < subs_array.length; i++) {
       line_array = subs_array[i].split(",")
-      //Dialogue: 0,0:00:13.22,0:01:02.37,Default,,0,0,0,, There is text of phrase in media 
+      //Dialogue: 0,0:00:13.22,0:01:02.37,Default,,0,0,0,, There is text of phrase in media
       sub.timingStart = this.timeToSeconds(line_array[1])
       sub.timingEnd = this.timeToSeconds(line_array[2])
       sub.text = line_array[9]

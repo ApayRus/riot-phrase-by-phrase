@@ -40,6 +40,8 @@ riot.tag2('contenttable', '<div id="contentTable"> <table> <tr> <th></th> <th>Pl
         tag.update()
     })
 
+    Phrases.on("translation_changed", function(){tag.update()})
+
 }, '{ }');
 
 riot.tag2('mediainputoutput', '<div id="mediaInput"> <p>Add link to media: <input placeholder="URL to media" name="link" oninput="{readLink}"></input> <span name="mediaType"> {mediaType}</span></p> <audio if="{mediaType==⁗audio⁗}" name="audioElement" controls="1" riot-src="{this.link.value}"></audio><br> <video if="{mediaType==⁗video⁗}" name="videoElement" controls="1" riot-src="{this.link.value}"></video><br> <div if="{mediaType==⁗youtube⁗}" id="player"></div> <playercontrols currentphrase="{this.currentPhraseNum}" subs-original="{this.subs_original}" subs-translation="{this.subs_translation}"></PlayerControls> </div>', '', '', function(opts) {
@@ -154,6 +156,7 @@ riot.tag2('textanalyze', '<select onchange="{inputedTextAnalyze}"> <option></opt
         Phrases.set(Subtitles.parseWebvttSrt(sub_text));
       else if(sub_type == "ass")
         Phrases.set(Subtitles.parseAss(text));
+        console.log(sub_type)
     }
 
     tag.readWordByWord = function(text){
@@ -223,5 +226,4 @@ riot.tag2('textsoriginaltranslation', '<textarea name="original"></textarea> <te
       Phrases.readTranslationFromText(tag.translation.value)
     }
 
-    Phrases.on("translation_changed", function(){riot.update()})
 }, '{ }');

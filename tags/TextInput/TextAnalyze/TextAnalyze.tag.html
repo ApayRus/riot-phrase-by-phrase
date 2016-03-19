@@ -28,7 +28,9 @@
         Phrases.set(Subtitles.parseWebvttSrt(sub_text));
       else if(sub_type == "ass")
         Phrases.set(Subtitles.parseAss(text));
+        console.log(sub_type)
     }
+
 
 
     tag.readWordByWord = function(text){

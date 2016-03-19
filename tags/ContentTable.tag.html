@@ -63,6 +63,8 @@
         console.log(Phrases.getTranslationLanguage())
         tag.update()
     })
+    
+    Phrases.on("translation_changed", function(){tag.update()})
 
   </script>
 
